@@ -92,7 +92,9 @@ export const property: PropertyConfig = {
   agent: {
     name: "Elena Marchetti",
     title: "Director, Private Office",
-    photo: "/media/agent/agent.jpg",
+    // Path to a headshot (e.g. "/media/agent/agent.jpg"). Leave empty to show
+    // an elegant monogram placeholder instead.
+    photo: "",
     phone: "+971 4 555 0160",
     email: "elena.marchetti@example.com",
   },
