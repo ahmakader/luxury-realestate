@@ -76,3 +76,5 @@ jobs:
           fi
         env:
           TASK: ${{ inputs.task }}
+
+# touch: re-register after initial default-branch assignment
