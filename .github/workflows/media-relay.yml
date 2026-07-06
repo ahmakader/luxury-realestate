@@ -1,0 +1,78 @@
+name: media-relay
+
+# Media pipeline for generated cinematic assets (Higgsfield/Seedance).
+# The build container cannot reach the media CDN directly, so this workflow
+# downloads, processes (ffmpeg), and commits optimized assets to the branch.
+
+on:
+  workflow_dispatch:
+    inputs:
+      task:
+        description: "chain | finalize"
+        required: true
+        type: string
+      prefix:
+        description: "clip prefix for chain task (e.g. 01-approach)"
+        required: false
+        type: string
+        default: ""
+      video_url:
+        description: "clip URL for chain task"
+        required: false
+        type: string
+        default: ""
+      upload_url:
+        description: "presigned PUT URL for the extracted last frame (chain task)"
+        required: false
+        type: string
+        default: ""
+      video_urls:
+        description: "space-separated clip URLs in order (finalize task)"
+        required: false
+        type: string
+        default: ""
+      hero_url:
+        description: "hero image URL (finalize task)"
+        required: false
+        type: string
+        default: ""
+
+permissions:
+  contents: write
+
+concurrency:
+  group: media-relay
+  cancel-in-progress: false
+
+jobs:
+  relay:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+      - name: Install ffmpeg
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+      - name: Run media task
+        env:
+          TASK: ${{ inputs.task }}
+          PREFIX: ${{ inputs.prefix }}
+          VIDEO_URL: ${{ inputs.video_url }}
+          UPLOAD_URL: ${{ inputs.upload_url }}
+          VIDEO_URLS: ${{ inputs.video_urls }}
+          HERO_URL: ${{ inputs.hero_url }}
+        run: bash .github/scripts/media_relay.sh
+      - name: Commit results
+        run: |
+          git config user.name "media-relay[bot]"
+          git config user.email "media-relay@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "nothing to commit"
+          else
+            git commit -m "media-relay: ${TASK:-${{ inputs.task }}} ${{ inputs.prefix }}"
+            git pull --rebase origin "${{ github.ref_name }}"
+            git push origin "HEAD:${{ github.ref_name }}"
+          fi
+        env:
+          TASK: ${{ inputs.task }}
