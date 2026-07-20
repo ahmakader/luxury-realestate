@@ -143,9 +143,9 @@ export const property: PropertyConfig = {
     mobileTourPoster: "/media/tour/stills/approach.webp",
     gallery: [
       { src: "/media/gallery/01.webp", alt: "The tower's glass crown at blue hour" },
-      { src: "/media/gallery/02.webp", alt: "Living room with floor-to-ceiling windows over the skyline" },
-      { src: "/media/gallery/03.webp", alt: "Italian marble detail beside the fireplace" },
-      { src: "/media/gallery/04.webp", alt: "Chef's kitchen in Calacatta marble" },
+      { src: "/media/gallery/02.webp", alt: "The tower rising over Dubai Marina at dusk" },
+      { src: "/media/gallery/03.webp", alt: "The wraparound terrace at the tower's crown" },
+      { src: "/media/gallery/04.webp", alt: "The marble living room with its linear fireplace" },
       { src: "/media/gallery/05.webp", alt: "Primary suite facing the glowing terrace doors" },
       { src: "/media/gallery/06.webp", alt: "Infinity pool reflecting the Dubai skyline at night" },
     ],
