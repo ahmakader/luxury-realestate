@@ -45,6 +45,37 @@ html {
   }
 }
 
+/* Variant: reveal with a soft scale-up (used on the price numeral). */
+.reveal.reveal-zoom {
+  transform: translateY(24px) scale(0.97);
+}
+
+.reveal.reveal-zoom.is-visible {
+  transform: translateY(0) scale(1);
+}
+
+/* Thin rule that draws in horizontally once an ancestor .reveal becomes
+   visible (or the element itself does). Stagger via --reveal-delay. */
+.draw-line {
+  transform: scaleX(0);
+  transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0s);
+  will-change: transform;
+}
+
+.is-visible .draw-line,
+.draw-line.is-visible {
+  transform: scaleX(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal.reveal-zoom,
+  .draw-line {
+    transform: none;
+    transition: none;
+  }
+}
+
 /* Hero scroll cue */
 @keyframes cue-drift {
   0%,

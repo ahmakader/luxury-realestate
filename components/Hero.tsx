@@ -21,11 +21,23 @@ export default function Hero() {
           {city} · {floor}
         </p>
 
-        <div>
-          <h1 className="font-serif text-5xl font-light tracking-[0.18em] text-bone sm:text-7xl md:text-8xl">
+        <div className="relative flex w-full flex-col items-center">
+          {/* Darkened band behind the title only, so it pops regardless of
+              what the photo does in that vertical stripe */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute left-1/2 top-1/2 h-[190%] w-screen -translate-x-1/2 -translate-y-1/2 bg-gradient-to-b from-transparent via-ink/65 to-transparent"
+          />
+          <h1
+            className="relative font-serif text-5xl font-light tracking-[0.22em] text-bone sm:text-7xl sm:tracking-[0.25em] md:text-8xl lg:text-9xl lg:tracking-[0.28em]"
+            style={{
+              textShadow:
+                "0 0 70px rgba(201, 168, 106, 0.38), 0 0 24px rgba(10, 10, 10, 0.9), 0 3px 30px rgba(0, 0, 0, 0.85)",
+            }}
+          >
             {propertyName}
           </h1>
-          <p className="mt-6 font-serif text-xl font-light italic tracking-wide text-gold sm:text-2xl">
+          <p className="relative mt-8 font-serif text-xl font-light italic tracking-wide text-gold sm:text-2xl">
             {tagline}
           </p>
         </div>

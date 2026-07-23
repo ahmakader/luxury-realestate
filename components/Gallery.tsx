@@ -10,6 +10,7 @@ export default function Gallery() {
   const [open, setOpen] = useState<number | null>(null);
   const lastTrigger = useRef<HTMLElement | null>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
 
   const close = useCallback(() => {
     setOpen(null);
@@ -31,6 +32,21 @@ export default function Gallery() {
       if (event.key === "Escape") close();
       if (event.key === "ArrowRight") step(1);
       if (event.key === "ArrowLeft") step(-1);
+      if (event.key === "Tab") {
+        // Focus trap: cycle within the dialog's controls while open.
+        const controls = dialogRef.current?.querySelectorAll<HTMLButtonElement>("button");
+        if (!controls || controls.length === 0) return;
+        const first = controls[0];
+        const last = controls[controls.length - 1];
+        const active = document.activeElement;
+        if (event.shiftKey && (active === first || !dialogRef.current?.contains(active))) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && (active === last || !dialogRef.current?.contains(active))) {
+          event.preventDefault();
+          first.focus();
+        }
+      }
     };
     window.addEventListener("keydown", onKey);
     document.body.style.overflow = "hidden";
@@ -84,6 +100,7 @@ export default function Gallery() {
       {/* Lightbox */}
       {open !== null && (
         <div
+          ref={dialogRef}
           role="dialog"
           aria-modal="true"
           aria-label={gallery[open].alt}
