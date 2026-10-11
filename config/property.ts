@@ -66,6 +66,8 @@ export interface PropertyConfig {
   };
 }
 
+const mediaBasePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
 export const property: PropertyConfig = {
   propertyName: "THE MERIDIAN",
   tagline: "Sixty floors above everything",
@@ -92,7 +94,7 @@ export const property: PropertyConfig = {
   agent: {
     name: "Elena Marchetti",
     title: "Director, Private Office",
-    // Path to a headshot (e.g. "/media/agent/agent.jpg"). Leave empty to show
+    // Path to a headshot (e.g. `${mediaBasePath}/media/agent/agent.jpg`). Leave empty to show
     // an elegant monogram placeholder instead.
     photo: "",
     phone: "+971 4 555 0160",
@@ -103,51 +105,51 @@ export const property: PropertyConfig = {
   formspreeEndpoint: "https://formspree.io/f/YOUR_FORM_ID",
 
   media: {
-    heroImage: "/media/hero.webp",
+    heroImage: `${mediaBasePath}/media/hero.webp`,
     heroImageAlt:
       "The Meridian tower at dusk, its glass facade glowing above the Dubai skyline",
     tour: {
       frameCount: 140,
       framePath: (i, format) =>
-        `/media/tour/${format}/${String(i).padStart(4, "0")}.${format}`,
-      placeholder: "/media/tour/placeholder.jpg",
+        `${mediaBasePath}/media/tour/${format}/${String(i).padStart(4, "0")}.${format}`,
+      placeholder: `${mediaBasePath}/media/tour/placeholder.jpg`,
       frameAspect: 16 / 9,
       spaces: [
         {
           id: "approach",
           name: "The Approach",
           caption: "Curving through the dusk, sixty floors up.",
-          still: "/media/tour/stills/approach.webp",
+          still: `${mediaBasePath}/media/tour/stills/approach.webp`,
         },
         {
           id: "arrival",
           name: "The Arrival",
           caption: "A private elevator opens onto seven thousand square feet of sky.",
-          still: "/media/tour/stills/arrival.webp",
+          still: `${mediaBasePath}/media/tour/stills/arrival.webp`,
         },
         {
           id: "flow",
           name: "The Flow",
           caption: "Marble, fire and glass — one continuous gesture.",
-          still: "/media/tour/stills/flow.webp",
+          still: `${mediaBasePath}/media/tour/stills/flow.webp`,
         },
         {
           id: "terrace",
           name: "The Terrace",
           caption: "An infinity pool holding the entire skyline.",
-          still: "/media/tour/stills/terrace.webp",
+          still: `${mediaBasePath}/media/tour/stills/terrace.webp`,
         },
       ],
     },
-    mobileTourVideo: "/media/tour/mobile-tour.mp4",
-    mobileTourPoster: "/media/tour/stills/approach.webp",
+    mobileTourVideo: `${mediaBasePath}/media/tour/mobile-tour.mp4`,
+    mobileTourPoster: `${mediaBasePath}/media/tour/stills/approach.webp`,
     gallery: [
-      { src: "/media/gallery/01.webp", alt: "The tower's glass crown at blue hour" },
-      { src: "/media/gallery/02.webp", alt: "The tower rising over Dubai Marina at dusk" },
-      { src: "/media/gallery/03.webp", alt: "The wraparound terrace at the tower's crown" },
-      { src: "/media/gallery/04.webp", alt: "The marble living room with its linear fireplace" },
-      { src: "/media/gallery/05.webp", alt: "Primary suite facing the glowing terrace doors" },
-      { src: "/media/gallery/06.webp", alt: "Infinity pool reflecting the Dubai skyline at night" },
+      { src: `${mediaBasePath}/media/gallery/01.webp`, alt: "The tower's glass crown at blue hour" },
+      { src: `${mediaBasePath}/media/gallery/02.webp`, alt: "The tower rising over Dubai Marina at dusk" },
+      { src: `${mediaBasePath}/media/gallery/03.webp`, alt: "The wraparound terrace at the tower's crown" },
+      { src: `${mediaBasePath}/media/gallery/04.webp`, alt: "The marble living room with its linear fireplace" },
+      { src: `${mediaBasePath}/media/gallery/05.webp`, alt: "Primary suite facing the glowing terrace doors" },
+      { src: `${mediaBasePath}/media/gallery/06.webp`, alt: "Infinity pool reflecting the Dubai skyline at night" },
     ],
   },
 };
